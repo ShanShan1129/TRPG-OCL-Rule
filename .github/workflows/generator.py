@@ -51,14 +51,14 @@ example="""<details><summary>項目3</summary>
     <ul>
         <li>項目１－１
         <li>項目１－２
-        <li>項目１－３お前に教えるooooooooooooooo
+        <li>項目１－３お前に教えるoooooooooooooooa
     </ul>
     <details>
 """
 
 #footer 以下略
 footer="""    </div>
-    <p>かっこいいCSS書けるシャンカーにこのページを託す…</p>
+     <p>このページは<a href=https://github.com/ShanShan1129 target=_blank rel="noopener noreferrer">ShanShan1129</a>の非公式版なので<br>足りないログがある可能性も普通にあることを教える</p><p>とはいえログの抜けに気が付いた時はスレとかで報告上げてくれると助かるけどお前ら？</p>
   </body>
 </html>"""
 
