@@ -20,21 +20,27 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a python script
-        run: |
-          python3 .github/workflows/generator.py > logViewer.html
-
-      # Job for Minify-JS
-      - name: Minify-JS Action
-        uses: jossydevers/minify-js@v1.0.1
+      # Job for Minify-JS 全部圧縮する…だろ？
+      - name: HTML/CSS/JS Minifier
+        uses: docker://devatherock/minify-js:1.0.3
         with:
-          directory: 'logViewer.html' # (OPTIONAL)
-          output: './'
+          directory: '.'      # Optional
+          add_suffix: false     # Optional
 
-      - name: cat logViewer
+      #Diffをとって失敗時(=変更無しのとき)でも成功にする
+      - name: Diff
+        id: diff
         run: |
-          rm logViewer.html
-          mv logViewer.min.html logViewer.html
-          cat logViewer.html
+          git add -N .
+          git diff --name-only --exit-code
+        continue-on-error: true
 
+      # 成果物をプッシュ
+      - name: Commit & Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
+        if: steps.diff.outcome == 'failure'
